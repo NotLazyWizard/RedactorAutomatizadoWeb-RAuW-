@@ -126,20 +126,20 @@ async def manejar_texto_libre(update: Update, context: ContextTypes.DEFAULT_TYPE
             )
             return
 
-        # Guardar feedback del admin
+        # Guardar feedback del admin y devolver la nota al ciclo de redacción.
+        # El job programado 'procesar_notas_en_redaccion' (cada 5 min en main.py)
+        # se encargará del reintento completo Escritor → Juez, incluyendo
+        # los reintentos automáticos hasta MAX_REWRITE_ATTEMPTS.
         nota.feedback_admin = texto
-        nota.estado = EstadoNota.EN_REVISION_JUEZ
+        nota.feedback_juez = texto  # Se usa como instrucción directa para el escritor
+        nota.estado = EstadoNota.EN_REDACCION
         db.commit()
 
         await update.message.reply_text(
             f"📝 Sugerencias recibidas para la nota ID `{nota.id}`.\n"
-            "El escritor aplicará los cambios y te enviaré la versión corregida.",
+            "El escritor aplicará los cambios y te enviaré la versión corregida "
+            "en unos minutos.",
             parse_mode="Markdown"
-        )
-
-        # Disparar el ciclo de corrección en background
-        context.application.create_task(
-            _ciclo_correccion(nota.id, context)
         )
 
     finally:
