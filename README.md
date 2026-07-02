@@ -1,4 +1,4 @@
-# 🚀 Guía de Instalación y Despliegue — Gikinx Bot
+#  Guía de Instalación y Despliegue — 
 
 ## Requisitos previos en la Raspberry Pi
 
