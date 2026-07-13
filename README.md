@@ -29,7 +29,7 @@ nano .env
 Rellena los siguientes valores:
 
 ```env
-EMAIL_PASSWORD=Gato!jotogikinx12.
+EMAIL_PASSWORD=contraseña.
 GROQ_API_KEY=tu_nueva_clave_gsk_...
 TELEGRAM_BOT_TOKEN=tu_nuevo_token_del_bot
 TELEGRAM_ADMIN_CHAT_ID=tu_chat_id_numerico
